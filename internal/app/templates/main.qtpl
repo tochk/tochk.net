@@ -1,0 +1,3 @@
+{% func Header() %}
+head
+{% endfunc %}

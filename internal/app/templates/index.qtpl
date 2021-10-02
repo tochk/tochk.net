@@ -1,0 +1,3 @@
+{% func IndexPage() %}
+index
+{% endfunc %}

@@ -1,0 +1,3 @@
+{% func ErrorPage(err error) %}
+{%s= err.Error() %}
+{% endfunc %}
