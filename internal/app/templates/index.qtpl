@@ -1,3 +1,6 @@
 {% func IndexPage() %}
-index
+{%s= Header("tochk.ru") %}
+{%s= Menu(false) %} //todo
+INDEX
+{%s= Footer() %}
 {% endfunc %}

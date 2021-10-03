@@ -5,4 +5,7 @@ build:
 generate:
 	go generate ./...
 
+run:
+	go run cmd/tochkru/main.go -log=debug
+
 all: generate build

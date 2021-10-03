@@ -18,36 +18,157 @@ var (
 )
 
 //line main.qtpl:1
-func StreamHeader(qw422016 *qt422016.Writer) {
+func StreamHeader(qw422016 *qt422016.Writer, title string) {
 //line main.qtpl:1
 	qw422016.N().S(`
-head
+<!DOCTYPE html>
+<html>
+<head>
+    <title>`)
+//line main.qtpl:5
+	qw422016.E().S(title)
+//line main.qtpl:5
+	qw422016.N().S(`</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link href="/static/style.css" rel="stylesheet" type="text/css"/>
+    <link href="/favicon.ico" rel="shortcut icon" type="image/x-icon"/>
+    <link href='https://fonts.googleapis.com/css?family=Roboto+Slab&subset=latin,cyrillic' rel='stylesheet'
+          type='text/css'>
+</head>
+<body>
 `)
-//line main.qtpl:3
+//line main.qtpl:13
 }
 
-//line main.qtpl:3
-func WriteHeader(qq422016 qtio422016.Writer) {
-//line main.qtpl:3
+//line main.qtpl:13
+func WriteHeader(qq422016 qtio422016.Writer, title string) {
+//line main.qtpl:13
 	qw422016 := qt422016.AcquireWriter(qq422016)
-//line main.qtpl:3
-	StreamHeader(qw422016)
-//line main.qtpl:3
+//line main.qtpl:13
+	StreamHeader(qw422016, title)
+//line main.qtpl:13
 	qt422016.ReleaseWriter(qw422016)
-//line main.qtpl:3
+//line main.qtpl:13
 }
 
-//line main.qtpl:3
-func Header() string {
-//line main.qtpl:3
+//line main.qtpl:13
+func Header(title string) string {
+//line main.qtpl:13
 	qb422016 := qt422016.AcquireByteBuffer()
-//line main.qtpl:3
-	WriteHeader(qb422016)
-//line main.qtpl:3
+//line main.qtpl:13
+	WriteHeader(qb422016, title)
+//line main.qtpl:13
 	qs422016 := string(qb422016.B)
-//line main.qtpl:3
+//line main.qtpl:13
 	qt422016.ReleaseByteBuffer(qb422016)
-//line main.qtpl:3
+//line main.qtpl:13
 	return qs422016
-//line main.qtpl:3
+//line main.qtpl:13
+}
+
+//line main.qtpl:15
+func StreamMenu(qw422016 *qt422016.Writer, isAdmin bool) {
+//line main.qtpl:15
+	qw422016.N().S(`
+<header>
+    <div id="header_for_buttons">
+        <div id="logo_name" onclick="window.location.href='/'"><h1>TOCHK.RU</h1></div>
+        <div id="buttons">
+            `)
+//line main.qtpl:20
+	if isAdmin {
+//line main.qtpl:20
+		qw422016.N().S(` <div id="button" onclick="window.location.href='/admin/'">АДМИНКА</div> `)
+//line main.qtpl:20
+	}
+//line main.qtpl:20
+	qw422016.N().S(`
+            <div id="button" onclick="window.location.href='/projects/'">ПРОЕКТЫ</div>
+            <div id="button" onclick="window.location.href='/blog/'">СТАТЬИ</div>
+            <div id="button" onclick="window.location.href='/'">ГЛАВНАЯ</div>
+        </div>
+    </div>
+</header>
+<main>
+    <div id="top_menu">
+        <div id="header_top"></div>
+    </div>
+    <div id="left_menu">
+        <div id="block_for_left">
+            <div id="head_left_menu">TAGS</div>
+            <div id="info_left_menu">TAGS TBD</div>
+        </div>
+    </div>
+    <div id="right_menu">
+        <content>
+`)
+//line main.qtpl:39
+}
+
+//line main.qtpl:39
+func WriteMenu(qq422016 qtio422016.Writer, isAdmin bool) {
+//line main.qtpl:39
+	qw422016 := qt422016.AcquireWriter(qq422016)
+//line main.qtpl:39
+	StreamMenu(qw422016, isAdmin)
+//line main.qtpl:39
+	qt422016.ReleaseWriter(qw422016)
+//line main.qtpl:39
+}
+
+//line main.qtpl:39
+func Menu(isAdmin bool) string {
+//line main.qtpl:39
+	qb422016 := qt422016.AcquireByteBuffer()
+//line main.qtpl:39
+	WriteMenu(qb422016, isAdmin)
+//line main.qtpl:39
+	qs422016 := string(qb422016.B)
+//line main.qtpl:39
+	qt422016.ReleaseByteBuffer(qb422016)
+//line main.qtpl:39
+	return qs422016
+//line main.qtpl:39
+}
+
+//line main.qtpl:42
+func StreamFooter(qw422016 *qt422016.Writer) {
+//line main.qtpl:42
+	qw422016.N().S(`
+        </content>
+    </div>
+</main>
+<footer>
+    design by lenokh // tochk.ru 2015 - 2021 TODO
+</footer>
+</body>
+</html>
+`)
+//line main.qtpl:51
+}
+
+//line main.qtpl:51
+func WriteFooter(qq422016 qtio422016.Writer) {
+//line main.qtpl:51
+	qw422016 := qt422016.AcquireWriter(qq422016)
+//line main.qtpl:51
+	StreamFooter(qw422016)
+//line main.qtpl:51
+	qt422016.ReleaseWriter(qw422016)
+//line main.qtpl:51
+}
+
+//line main.qtpl:51
+func Footer() string {
+//line main.qtpl:51
+	qb422016 := qt422016.AcquireByteBuffer()
+//line main.qtpl:51
+	WriteFooter(qb422016)
+//line main.qtpl:51
+	qs422016 := string(qb422016.B)
+//line main.qtpl:51
+	qt422016.ReleaseByteBuffer(qb422016)
+//line main.qtpl:51
+	return qs422016
+//line main.qtpl:51
 }

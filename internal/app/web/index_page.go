@@ -5,7 +5,7 @@ import (
 	"tochkru-golang/internal/app/templates"
 )
 
-func (web *Web) IndexPage(w http.ResponseWriter, r *http.Request) (interface{}, error) {
+func (web *Web) IndexPage(w http.ResponseWriter, r *http.Request) (string, error) {
 
 	return templates.IndexPage(), nil
 }

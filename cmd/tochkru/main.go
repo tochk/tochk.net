@@ -1,6 +1,7 @@
 package main
 
 import (
+	"flag"
 	"net/http"
 	"tochkru-golang/internal/app/api"
 	"tochkru-golang/internal/app/config"
@@ -9,6 +10,7 @@ import (
 	"tochkru-golang/internal/app/service"
 	"tochkru-golang/internal/app/web"
 
+	"github.com/GeertJohan/go.rice"
 	"github.com/gorilla/mux"
 	"github.com/jmoiron/sqlx"
 	"github.com/kelseyhightower/envconfig"
@@ -17,11 +19,22 @@ import (
 	log "github.com/sirupsen/logrus"
 )
 
+var (
+	logLevelFlag = flag.String("log", "info", "log level")
+)
+
 func main() {
 	log.Info("starting")
+	flag.Parse()
 	cfg := config.Config{}
 	envconfig.MustProcess("tochkru", &cfg)
 
+	logLevel, err := log.ParseLevel(*logLevelFlag)
+	if err != nil {
+		log.Warningln("can't parse provided log level, using info level")
+		logLevel = log.InfoLevel
+	}
+	log.SetLevel(logLevel)
 	db := sqlx.MustConnect("postgres", cfg.DbUrl)
 	log.Info("connected to database")
 
@@ -42,6 +55,10 @@ func main() {
 			panic(err)
 		}
 	}()
+
+	box := rice.MustFindBox("../../internal/static")
+	staticFileServer := http.StripPrefix("/static/", http.FileServer(box.HTTPBox()))
+	router.Handle("/static/{path:.*}", staticFileServer)
 
 	router.HandleFunc("/", w.Wrapper(w.IndexPage)).Methods("GET")
 

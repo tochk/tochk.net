@@ -1,3 +1,51 @@
-{% func Header() %}
-head
+{% func Header(title string) %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{%s title %}</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link href="/static/style.css" rel="stylesheet" type="text/css"/>
+    <link href="/favicon.ico" rel="shortcut icon" type="image/x-icon"/>
+    <link href='https://fonts.googleapis.com/css?family=Roboto+Slab&subset=latin,cyrillic' rel='stylesheet'
+          type='text/css'>
+</head>
+<body>
+{% endfunc %}
+
+{% func Menu(isAdmin bool) %}
+<header>
+    <div id="header_for_buttons">
+        <div id="logo_name" onclick="window.location.href='/'"><h1>TOCHK.RU</h1></div>
+        <div id="buttons">
+            {% if isAdmin %} <div id="button" onclick="window.location.href='/admin/'">АДМИНКА</div> {% endif %}
+            <div id="button" onclick="window.location.href='/projects/'">ПРОЕКТЫ</div>
+            <div id="button" onclick="window.location.href='/blog/'">СТАТЬИ</div>
+            <div id="button" onclick="window.location.href='/'">ГЛАВНАЯ</div>
+        </div>
+    </div>
+</header>
+<main>
+    <div id="top_menu">
+        <div id="header_top"></div>
+    </div>
+    <div id="left_menu">
+        <div id="block_for_left">
+            <div id="head_left_menu">TAGS</div>
+            <div id="info_left_menu">TODO</div>
+        </div>
+    </div>
+    <div id="right_menu">
+        <content>
+{% endfunc %}
+
+
+{% func Footer(year int) %}
+        </content>
+    </div>
+</main>
+<footer>
+    design by lenokh // tochk.ru 2015 - {%d= year %}
+</footer>
+</body>
+</html>
 {% endfunc %}

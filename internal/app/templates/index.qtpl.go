@@ -21,33 +21,48 @@ var (
 func StreamIndexPage(qw422016 *qt422016.Writer) {
 //line index.qtpl:1
 	qw422016.N().S(`
-index
+`)
+//line index.qtpl:2
+	qw422016.N().S(Header("tochk.ru"))
+//line index.qtpl:2
+	qw422016.N().S(`
 `)
 //line index.qtpl:3
+	qw422016.N().S(Menu(false))
+//line index.qtpl:3
+	qw422016.N().S(` //todo
+INDEX
+`)
+//line index.qtpl:5
+	qw422016.N().S(Footer())
+//line index.qtpl:5
+	qw422016.N().S(`
+`)
+//line index.qtpl:6
 }
 
-//line index.qtpl:3
+//line index.qtpl:6
 func WriteIndexPage(qq422016 qtio422016.Writer) {
-//line index.qtpl:3
+//line index.qtpl:6
 	qw422016 := qt422016.AcquireWriter(qq422016)
-//line index.qtpl:3
+//line index.qtpl:6
 	StreamIndexPage(qw422016)
-//line index.qtpl:3
+//line index.qtpl:6
 	qt422016.ReleaseWriter(qw422016)
-//line index.qtpl:3
+//line index.qtpl:6
 }
 
-//line index.qtpl:3
+//line index.qtpl:6
 func IndexPage() string {
-//line index.qtpl:3
+//line index.qtpl:6
 	qb422016 := qt422016.AcquireByteBuffer()
-//line index.qtpl:3
+//line index.qtpl:6
 	WriteIndexPage(qb422016)
-//line index.qtpl:3
+//line index.qtpl:6
 	qs422016 := string(qb422016.B)
-//line index.qtpl:3
+//line index.qtpl:6
 	qt422016.ReleaseByteBuffer(qb422016)
-//line index.qtpl:3
+//line index.qtpl:6
 	return qs422016
-//line index.qtpl:3
+//line index.qtpl:6
 }
