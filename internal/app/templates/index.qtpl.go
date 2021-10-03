@@ -34,7 +34,7 @@ func StreamIndexPage(qw422016 *qt422016.Writer) {
 INDEX
 `)
 //line index.qtpl:5
-	qw422016.N().S(Footer())
+	qw422016.N().S(Footer(2021))
 //line index.qtpl:5
 	qw422016.N().S(`
 `)

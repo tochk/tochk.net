@@ -96,7 +96,7 @@ func StreamMenu(qw422016 *qt422016.Writer, isAdmin bool) {
     <div id="left_menu">
         <div id="block_for_left">
             <div id="head_left_menu">TAGS</div>
-            <div id="info_left_menu">TAGS TBD</div>
+            <div id="info_left_menu">TODO</div>
         </div>
     </div>
     <div id="right_menu">
@@ -132,14 +132,18 @@ func Menu(isAdmin bool) string {
 }
 
 //line main.qtpl:42
-func StreamFooter(qw422016 *qt422016.Writer) {
+func StreamFooter(qw422016 *qt422016.Writer, year int) {
 //line main.qtpl:42
 	qw422016.N().S(`
         </content>
     </div>
 </main>
 <footer>
-    design by lenokh // tochk.ru 2015 - 2021 TODO
+    design by lenokh // tochk.ru 2015 - `)
+//line main.qtpl:47
+	qw422016.N().D(year)
+//line main.qtpl:47
+	qw422016.N().S(`
 </footer>
 </body>
 </html>
@@ -148,22 +152,22 @@ func StreamFooter(qw422016 *qt422016.Writer) {
 }
 
 //line main.qtpl:51
-func WriteFooter(qq422016 qtio422016.Writer) {
+func WriteFooter(qq422016 qtio422016.Writer, year int) {
 //line main.qtpl:51
 	qw422016 := qt422016.AcquireWriter(qq422016)
 //line main.qtpl:51
-	StreamFooter(qw422016)
+	StreamFooter(qw422016, year)
 //line main.qtpl:51
 	qt422016.ReleaseWriter(qw422016)
 //line main.qtpl:51
 }
 
 //line main.qtpl:51
-func Footer() string {
+func Footer(year int) string {
 //line main.qtpl:51
 	qb422016 := qt422016.AcquireByteBuffer()
 //line main.qtpl:51
-	WriteFooter(qb422016)
+	WriteFooter(qb422016, year)
 //line main.qtpl:51
 	qs422016 := string(qb422016.B)
 //line main.qtpl:51

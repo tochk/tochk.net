@@ -2,5 +2,5 @@
 {%s= Header("tochk.ru") %}
 {%s= Menu(false) %} //todo
 INDEX
-{%s= Footer() %}
+{%s= Footer(2021) %}
 {% endfunc %}

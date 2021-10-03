@@ -8,4 +8,11 @@ generate:
 run:
 	go run cmd/tochkru/main.go -log=debug
 
+migrate:
+	go run cmd/migrations/main.go up ./migrations
+
+migrate_down:
+	go run cmd/migrations/main.go down ./migrations
+
+
 all: generate build
