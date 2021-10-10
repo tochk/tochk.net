@@ -6,6 +6,9 @@ import (
 )
 
 func (web *Web) IndexPage(w http.ResponseWriter, r *http.Request) (string, error) {
-
-	return templates.IndexPage(), nil
+	projects, err := web.s.GetProjectsByLanguage(LanguageRu)
+	if err != nil {
+		return "", err
+	}
+	return templates.IndexPage(projects), nil
 }

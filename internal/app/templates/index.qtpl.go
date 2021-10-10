@@ -5,64 +5,81 @@
 package templates
 
 //line index.qtpl:1
+import "tochkru-golang/internal/app/datastruct"
+
+//line index.qtpl:2
 import (
 	qtio422016 "io"
 
 	qt422016 "github.com/valyala/quicktemplate"
 )
 
-//line index.qtpl:1
+//line index.qtpl:2
 var (
 	_ = qtio422016.Copy
 	_ = qt422016.AcquireByteBuffer
 )
 
-//line index.qtpl:1
-func StreamIndexPage(qw422016 *qt422016.Writer) {
-//line index.qtpl:1
+//line index.qtpl:2
+func StreamIndexPage(qw422016 *qt422016.Writer, projects []datastruct.Projects) {
+//line index.qtpl:2
 	qw422016.N().S(`
 `)
-//line index.qtpl:2
+//line index.qtpl:3
 	qw422016.N().S(Header("tochk.ru"))
-//line index.qtpl:2
+//line index.qtpl:3
 	qw422016.N().S(`
 `)
-//line index.qtpl:3
+//line index.qtpl:4
 	qw422016.N().S(Menu(false))
-//line index.qtpl:3
-	qw422016.N().S(` //todo
-INDEX
-`)
-//line index.qtpl:5
-	qw422016.N().S(Footer(2021))
-//line index.qtpl:5
+//line index.qtpl:4
 	qw422016.N().S(`
 `)
+//line index.qtpl:5
+	for i := 0; i < 2 && len(projects) > i; i++ {
+//line index.qtpl:5
+		qw422016.N().S(`
+`)
 //line index.qtpl:6
+		qw422016.N().S(Project(projects[i]))
+//line index.qtpl:6
+		qw422016.N().S(`
+`)
+//line index.qtpl:7
+	}
+//line index.qtpl:7
+	qw422016.N().S(`
+`)
+//line index.qtpl:8
+	qw422016.N().S(Footer(2021))
+//line index.qtpl:8
+	qw422016.N().S(`
+`)
+//line index.qtpl:9
 }
 
-//line index.qtpl:6
-func WriteIndexPage(qq422016 qtio422016.Writer) {
-//line index.qtpl:6
+//line index.qtpl:9
+func WriteIndexPage(qq422016 qtio422016.Writer, projects []datastruct.Projects) {
+//line index.qtpl:9
 	qw422016 := qt422016.AcquireWriter(qq422016)
-//line index.qtpl:6
-	StreamIndexPage(qw422016)
-//line index.qtpl:6
+//line index.qtpl:9
+	StreamIndexPage(qw422016, projects)
+//line index.qtpl:9
 	qt422016.ReleaseWriter(qw422016)
-//line index.qtpl:6
+//line index.qtpl:9
 }
 
-//line index.qtpl:6
-func IndexPage() string {
-//line index.qtpl:6
+//line index.qtpl:9
+func IndexPage(projects []datastruct.Projects) string {
+//line index.qtpl:9
 	qb422016 := qt422016.AcquireByteBuffer()
-//line index.qtpl:6
-	WriteIndexPage(qb422016)
-//line index.qtpl:6
+//line index.qtpl:9
+	WriteIndexPage(qb422016, projects)
+//line index.qtpl:9
 	qs422016 := string(qb422016.B)
-//line index.qtpl:6
+//line index.qtpl:9
 	qt422016.ReleaseByteBuffer(qb422016)
-//line index.qtpl:6
+//line index.qtpl:9
 	return qs422016
-//line index.qtpl:6
+//line index.qtpl:9
 }

@@ -19,6 +19,11 @@ type Web struct {
 	cache map[string]string
 }
 
+const (
+	LanguageRu = "ru"
+	LanguageEn = "en"
+)
+
 func New(s *service.Service, m *metrics.Metrics) *Web {
 	return &Web{
 		s:     s,
