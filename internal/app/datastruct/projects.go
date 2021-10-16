@@ -9,6 +9,7 @@ type Projects struct {
 	Description      string    `db:"description"`
 	ImageURL         string    `db:"image_url"`
 	Language         string    `db:"language"`
+	RedirectURL      string    `db:"redirect_url"`
 	CreatedAt        time.Time `db:"created_at"`
 	UpdatedAt        time.Time `db:"updated_at"`
 }

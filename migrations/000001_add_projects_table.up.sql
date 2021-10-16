@@ -6,6 +6,7 @@ CREATE TABLE IF NOT EXISTS projects
     description       TEXT               NOT NULL,
     image_url         TEXT               NOT NULL,
     language          TEXT               NOT NULL DEFAULT 'ru',
+    redirect_url      TEXT               NOT NULL,
     created_at        TIMESTAMP          NOT NULL DEFAULT current_timestamp,
     updated_at        TIMESTAMP          NOT NULL DEFAULT current_timestamp
 );

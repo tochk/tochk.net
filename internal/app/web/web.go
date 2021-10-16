@@ -40,7 +40,8 @@ func (web *Web) Wrapper(f func(w http.ResponseWriter, r *http.Request) (string, 
 		defer func() {
 			log.Debugf("Served [%s] %s page from %s for %v", r.Method, r.URL.Path, r.Header.Get("X-Real-IP"), time.Since(t))
 		}()
-		if !strings.HasPrefix(r.URL.Path, "/admin/") {
+		if !strings.HasPrefix(r.URL.Path, "/admin/") &&
+			!strings.HasPrefix(r.URL.Path, "/project/") {
 			page, found := web.GetCachedPage(r.URL.Path)
 			if found {
 				log.Debugln("cache hit")

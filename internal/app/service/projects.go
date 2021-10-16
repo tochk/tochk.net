@@ -12,3 +12,7 @@ func (s *Service) GetProjectsByLanguage(language string) (res []datastruct.Proje
 
 	return res, err
 }
+
+func (s *Service) GetProjectByID(id int) (res datastruct.Projects, err error) {
+	return s.r.GetProjectByID(id)
+}

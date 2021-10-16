@@ -184,11 +184,7 @@ func Footer(year int) string {
 func StreamProject(qw422016 *qt422016.Writer, project datastruct.Projects) {
 //line main.qtpl:56
 	qw422016.N().S(`
-<div id='block_new_sait' onclick="window.open('/`)
-//line main.qtpl:57
-	qw422016.E().S(project.Language)
-//line main.qtpl:57
-	qw422016.N().S(`/project/`)
+<div id='block_new_sait' onclick="window.open('/project/`)
 //line main.qtpl:57
 	qw422016.N().D(project.ID)
 //line main.qtpl:57
@@ -220,7 +216,7 @@ func StreamProject(qw422016 *qt422016.Writer, project datastruct.Projects) {
 //line main.qtpl:67
 	qw422016.N().S(`</div>
     <div id='sait_data_about_block' style='width: 180px'>
-    <div style='width: 80px' id='sait_author'>Author<br><text_green>{$row['author']}</text_green></div>
+    <div style='width: 80px' id='sait_author'>Team<br><text_green>{$row['author']}</text_green></div>
     <div style='width: 80px' id='sait_cat'>Category<br><text_green>{$row['category']}</text_green></div>
     </div><div id='sait_right_footer'>read more</div>
 </div></div></div>

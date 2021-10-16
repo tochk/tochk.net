@@ -24,7 +24,7 @@ var (
 )
 
 func main() {
-	log.Info("starting")
+	log.Info("starting tochk.ru web server")
 	flag.Parse()
 	cfg := config.Config{}
 	envconfig.MustProcess("tochkru", &cfg)
@@ -50,7 +50,7 @@ func main() {
 		a := api.New(s, m)
 		internalRouter.Handle("/metrics", promhttp.Handler()).Methods("GET")
 		internalRouter.HandleFunc("/ready", a.GetReadyHandler).Methods("GET")
-		log.Info("Listening internal on: " + cfg.InternalListenAddr)
+		log.Info("listening internal on: " + cfg.InternalListenAddr)
 		if err := http.ListenAndServe(cfg.InternalListenAddr, internalRouter); err != nil {
 			panic(err)
 		}
@@ -62,7 +62,9 @@ func main() {
 
 	router.HandleFunc("/", w.Wrapper(w.IndexPage)).Methods("GET")
 
-	log.Info("Listening on: " + cfg.ListenAddr)
+	router.HandleFunc("/project/{id}", w.Wrapper(w.ProjectPage)).Methods("GET")
+
+	log.Info("listening on: " + cfg.ListenAddr)
 	if err := http.ListenAndServe(cfg.ListenAddr, router); err != nil {
 		panic(err)
 	}
