@@ -63,7 +63,7 @@ func main() {
 	staticFileServer := http.StripPrefix("/static/", http.FileServer(box.HTTPBox()))
 	router.Handle("/static/{path:.*}", staticFileServer)
 
-	router.HandleFunc("/", w.Wrapper(w.IndexPage)).Methods("GET")
+	router.HandleFunc("/", w.Wrapper(w.IndexPageHandler)).Methods("GET")
 	//router.HandleFunc("/articles/", w.Wrapper(w.ArticlesPage)).Methods("GET")
 	//router.HandleFunc("/projects/", w.Wrapper(w.ProjectsPage)).Methods("GET")
 

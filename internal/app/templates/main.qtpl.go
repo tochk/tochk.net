@@ -37,7 +37,7 @@ func StreamHeader(qw422016 *qt422016.Writer, title string) {
 	qw422016.N().S(` - tochk.net</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <link href="/static/style.css" rel="stylesheet" type="text/css"/>
-    <link href="/favicon.ico" rel="shortcut icon" type="image/x-icon"/>
+    <link href="/static/favicon.ico" rel="shortcut icon" type="image/x-icon"/>
     <link href='https://fonts.googleapis.com/css?family=Roboto+Slab&subset=latin,cyrillic' rel='stylesheet'
           type='text/css'>
 </head>
