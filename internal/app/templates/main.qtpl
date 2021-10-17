@@ -12,6 +12,15 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <link href="/static/style.css" rel="stylesheet" type="text/css"/>
     <link href="/static/favicon.ico" rel="shortcut icon" type="image/x-icon"/>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-5PZ91DE9PJ"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-5PZ91DE9PJ');
+    </script>
     <link href='https://fonts.googleapis.com/css?family=Roboto+Slab&subset=latin,cyrillic' rel='stylesheet'
           type='text/css'>
 </head>
