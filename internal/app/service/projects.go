@@ -1,18 +1,65 @@
 package service
 
-import "tochkru-golang/internal/app/datastruct"
+import (
+	"github.com/pkg/errors"
+	"tochkru-golang/internal/app/datastruct"
+)
 
 func (s *Service) GetProjectsByLanguage(language string) (res []datastruct.Projects, err error) {
 	res, err = s.r.GetProjectsByLanguage(language)
 	if err != nil {
-		return nil, err
+		return nil, errors.Wrap(err, "service.GetProjectsByLanguage")
 	}
 
-	//todo wrap cdn url
+	projectIDs := make([]int, 0, len(res))
+	for _, project := range res {
+		projectIDs = append(projectIDs, project.ID)
+	}
 
-	return res, err
+	projectTagsMap, err := s.GetProjectsTagsMap(projectIDs)
+	if err != nil {
+		return nil, errors.Wrap(err, "service.GetProjectsByLanguage")
+	}
+
+	projectTeamMembersMap, err := s.GetProjectsTeamMembersMap(projectIDs)
+	if err != nil {
+		return nil, errors.Wrap(err, "service.GetProjectsByLanguage")
+	}
+
+	for idx, project := range res {
+		project.ImageURL = s.cnf.CDNBaseURL + project.ImageURL
+		project.TagsIDs = projectTagsMap[project.ID]
+		project.TeamMembersIDs = projectTeamMembersMap[project.ID]
+		res[idx] = project
+	}
+	return res, nil
 }
 
 func (s *Service) GetProjectByID(id int) (res datastruct.Projects, err error) {
-	return s.r.GetProjectByID(id)
+	res, err = s.r.GetProjectByID(id)
+	return res, errors.Wrap(err, "service.GetProjectByID")
+}
+
+func (s *Service) GetProjectsTagsMap(projectIDs []int) (res map[int][]int, err error) {
+	projectsTags, err := s.r.GetProjectsTags(projectIDs)
+	if err != nil {
+		return nil, errors.Wrap(err, "service.GetProjectsTagsMap")
+	}
+	res = make(map[int][]int)
+	for _, projectTag := range projectsTags {
+		res[projectTag.ProjectID] = append(res[projectTag.ProjectID], projectTag.TagID)
+	}
+	return res, nil
+}
+
+func (s *Service) GetProjectsTeamMembersMap(projectIDs []int) (res map[int][]int, err error) {
+	projectsTeamMembers, err := s.r.GetProjectsTeamMembers(projectIDs)
+	if err != nil {
+		return nil, errors.Wrap(err, "service.GetProjectsTeamMembersMap")
+	}
+	res = make(map[int][]int)
+	for _, projectTeamMember := range projectsTeamMembers {
+		res[projectTeamMember.ProjectID] = append(res[projectTeamMember.ProjectID], projectTeamMember.TeamMemberID)
+	}
+	return res, nil
 }

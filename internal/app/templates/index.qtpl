@@ -1,9 +1,9 @@
 {% import "tochkru-golang/internal/app/datastruct" %}
-{% func IndexPage(projects []datastruct.Projects) %}
-{%s= Header("tochk.ru") %}
-{%s= Menu(false) %}
+{% func IndexPage(projects []datastruct.Projects, tags map[int]datastruct.Tags, teamMembers map[int]datastruct.TeamMembers, topTags []datastruct.Tags) %}
+{%s= Header("Главная") %}
+{%s= Menu(topTags) %}
 {% for i := 0; i < 2 && len(projects) > i; i++ %}
-{%s= Project(projects[i]) %}
+{%s= Project(projects[i], tags, teamMembers) %}
 {% endfor %}
-{%s= Footer(2021) %}
+{%s= Footer() %}
 {% endfunc %}

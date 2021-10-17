@@ -21,17 +21,17 @@ var (
 )
 
 //line index.qtpl:2
-func StreamIndexPage(qw422016 *qt422016.Writer, projects []datastruct.Projects) {
+func StreamIndexPage(qw422016 *qt422016.Writer, projects []datastruct.Projects, tags map[int]datastruct.Tags, teamMembers map[int]datastruct.TeamMembers, topTags []datastruct.Tags) {
 //line index.qtpl:2
 	qw422016.N().S(`
 `)
 //line index.qtpl:3
-	qw422016.N().S(Header("tochk.ru"))
+	qw422016.N().S(Header("Главная"))
 //line index.qtpl:3
 	qw422016.N().S(`
 `)
 //line index.qtpl:4
-	qw422016.N().S(Menu(false))
+	qw422016.N().S(Menu(topTags))
 //line index.qtpl:4
 	qw422016.N().S(`
 `)
@@ -41,7 +41,7 @@ func StreamIndexPage(qw422016 *qt422016.Writer, projects []datastruct.Projects) 
 		qw422016.N().S(`
 `)
 //line index.qtpl:6
-		qw422016.N().S(Project(projects[i]))
+		qw422016.N().S(Project(projects[i], tags, teamMembers))
 //line index.qtpl:6
 		qw422016.N().S(`
 `)
@@ -51,7 +51,7 @@ func StreamIndexPage(qw422016 *qt422016.Writer, projects []datastruct.Projects) 
 	qw422016.N().S(`
 `)
 //line index.qtpl:8
-	qw422016.N().S(Footer(2021))
+	qw422016.N().S(Footer())
 //line index.qtpl:8
 	qw422016.N().S(`
 `)
@@ -59,22 +59,22 @@ func StreamIndexPage(qw422016 *qt422016.Writer, projects []datastruct.Projects) 
 }
 
 //line index.qtpl:9
-func WriteIndexPage(qq422016 qtio422016.Writer, projects []datastruct.Projects) {
+func WriteIndexPage(qq422016 qtio422016.Writer, projects []datastruct.Projects, tags map[int]datastruct.Tags, teamMembers map[int]datastruct.TeamMembers, topTags []datastruct.Tags) {
 //line index.qtpl:9
 	qw422016 := qt422016.AcquireWriter(qq422016)
 //line index.qtpl:9
-	StreamIndexPage(qw422016, projects)
+	StreamIndexPage(qw422016, projects, tags, teamMembers, topTags)
 //line index.qtpl:9
 	qt422016.ReleaseWriter(qw422016)
 //line index.qtpl:9
 }
 
 //line index.qtpl:9
-func IndexPage(projects []datastruct.Projects) string {
+func IndexPage(projects []datastruct.Projects, tags map[int]datastruct.Tags, teamMembers map[int]datastruct.TeamMembers, topTags []datastruct.Tags) string {
 //line index.qtpl:9
 	qb422016 := qt422016.AcquireByteBuffer()
 //line index.qtpl:9
-	WriteIndexPage(qb422016, projects)
+	WriteIndexPage(qb422016, projects, tags, teamMembers, topTags)
 //line index.qtpl:9
 	qs422016 := string(qb422016.B)
 //line index.qtpl:9

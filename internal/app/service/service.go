@@ -1,6 +1,7 @@
 package service
 
 import (
+	"github.com/pkg/errors"
 	"tochkru-golang/internal/app/config"
 	"tochkru-golang/internal/app/repository"
 )
@@ -18,5 +19,5 @@ func New(cnf config.Config, r *repository.Repository) *Service {
 }
 
 func (s *Service) Ready() error {
-	return s.r.Ready()
+	return errors.Wrap(s.r.Ready(), "service.Ready")
 }

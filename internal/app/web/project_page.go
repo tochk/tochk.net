@@ -2,6 +2,7 @@ package web
 
 import (
 	"github.com/gorilla/mux"
+	"github.com/pkg/errors"
 	"net/http"
 	"strconv"
 )
@@ -10,9 +11,12 @@ func (web *Web) ProjectPage(w http.ResponseWriter, r *http.Request) (string, err
 	vars := mux.Vars(r)
 	id, err := strconv.Atoi(vars["id"])
 	if err != nil {
-		return "", err
+		return "", errors.Wrap(err, "web.ProjectPage")
 	}
 	project, err := web.s.GetProjectByID(id)
+	if err != nil {
+		return "",  errors.Wrap(err, "web.ProjectPage")
+	}
 	http.Redirect(w, r, project.RedirectURL, 302)
 	return "", nil
 }

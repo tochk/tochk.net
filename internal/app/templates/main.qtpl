@@ -1,10 +1,14 @@
-{% import "tochkru-golang/internal/app/datastruct" %}
+{% import
+(
+        "tochkru-golang/internal/app/datastruct"
+        "time"
+)%}
 
 {% func Header(title string) %}
 <!DOCTYPE html>
 <html>
 <head>
-    <title>{%s title %}</title>
+    <title>{%s title %} - tochk.net</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <link href="/static/style.css" rel="stylesheet" type="text/css"/>
     <link href="/favicon.ico" rel="shortcut icon" type="image/x-icon"/>
@@ -14,14 +18,13 @@
 <body>
 {% endfunc %}
 
-{% func Menu(isAdmin bool) %}
+{% func Menu(tags []datastruct.Tags) %}
 <header>
     <div id="header_for_buttons">
-        <div id="logo_name" onclick="window.location.href='/'"><h1>TOCHK.RU</h1></div>
+        <div id="logo_name" onclick="window.location.href='/'"><h1>TOCHK.NET</h1></div>
         <div id="buttons">
-            {% if isAdmin %} <div id="button" onclick="window.location.href='/admin/'">АДМИНКА</div> {% endif %}
             <div id="button" onclick="window.location.href='/projects/'">ПРОЕКТЫ</div>
-            <div id="button" onclick="window.location.href='/blog/'">СТАТЬИ</div>
+            <div id="button" onclick="window.location.href='/articles/'">СТАТЬИ</div>
             <div id="button" onclick="window.location.href='/'">ГЛАВНАЯ</div>
         </div>
     </div>
@@ -33,7 +36,7 @@
     <div id="left_menu">
         <div id="block_for_left">
             <div id="head_left_menu">TAGS</div>
-            <div id="info_left_menu">TODO</div>
+            <div id="info_left_menu">{% for _, tag := range tags %} {%s tag.Name %} {% endfor %}</div>
         </div>
     </div>
     <div id="right_menu">
@@ -41,19 +44,19 @@
 {% endfunc %}
 
 
-{% func Footer(year int) %}
+{% func Footer() %}
         </content>
     </div>
 </main>
 <footer>
-    design by lenokh // tochk.ru 2015 - {%d= year %}
+    design by lenokh // tochk.net 2013 - {%s time.Now().Format("2006") %}
 </footer>
 </body>
 </html>
 {% endfunc %}
 
 
-{% func Project(project datastruct.Projects) %}
+{% func Project(project datastruct.Projects, tags map[int]datastruct.Tags, teamMembers map[int]datastruct.TeamMembers) %}
 <div id='block_new_sait' onclick="window.open('/project/{%d project.ID %}', '_blank');">
     <div id='block_in_block_sait'>
     <div id='block_in_block_sait_2'>
@@ -64,10 +67,10 @@
     <div class='block_sait_scrin_3'>{%s= project.ShortDescription %}</div>
     </div></div></div></div><div id='block_sait_info'>
     <div id='block_sait_info_2'>
-    <div id='sait_date' style='width: 100px'>{%v project.CreatedAt %}</div>
+    <div id='sait_date' style='width: 100px'>{%s project.CreatedAt.Format("2006-01-02") %}</div>
     <div id='sait_data_about_block' style='width: 180px'>
-    <div style='width: 80px' id='sait_author'>Team<br><text_green>{$row['author']}</text_green></div>
-    <div style='width: 80px' id='sait_cat'>Category<br><text_green>{$row['category']}</text_green></div>
-    </div><div id='sait_right_footer'>read more</div>
+    <div style='width: 80px' id='sait_author'>Team<br><text_green>{% for _, teamMemberID := range project.TeamMembersIDs %}{%s teamMembers[teamMemberID].Name %}<br>{% endfor %}</text_green></div>
+    <div style='width: 80px' id='sait_cat'>Tags<br><text_green>{% for _, tagID := range project.TagsIDs %}{%s tags[tagID].Name %}<br>{% endfor %}</text_green></div>
+    </div><div id='sait_right_footer'>View</div>
 </div></div></div>
 {% endfunc %}
