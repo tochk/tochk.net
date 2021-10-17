@@ -19,6 +19,9 @@ import (
 	log "github.com/sirupsen/logrus"
 )
 
+//go:generate go get -u github.com/GeertJohan/go.rice/rice
+//go:generate $GOPATH/bin/rice embed-go
+
 var (
 	logLevelFlag = flag.String("log", "info", "log level")
 )
@@ -61,6 +64,8 @@ func main() {
 	router.Handle("/static/{path:.*}", staticFileServer)
 
 	router.HandleFunc("/", w.Wrapper(w.IndexPage)).Methods("GET")
+	//router.HandleFunc("/articles/", w.Wrapper(w.ArticlesPage)).Methods("GET")
+	//router.HandleFunc("/projects/", w.Wrapper(w.ProjectsPage)).Methods("GET")
 
 	router.HandleFunc("/project/{id}", w.Wrapper(w.ProjectPage)).Methods("GET")
 

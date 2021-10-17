@@ -72,7 +72,7 @@ main {
 
 #header_top {
     background-color: #01c690;
-    background-image: url(/design/images/header_top.png);
+    background-image: url('https://cdn.tochk.net/images/header_top.png');
     width: 880px;
     height: 80px;
     margin: 10px auto;
