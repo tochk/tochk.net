@@ -95,13 +95,17 @@ func StreamMenu(qw422016 *qt422016.Writer, tags []datastruct.Tags) {
             <div id="head_left_menu">TAGS</div>
             <div id="info_left_menu">`)
 //line main.qtpl:39
-	for _, tag := range tags {
+	for idx, tag := range tags {
 //line main.qtpl:39
 		qw422016.N().S(` `)
 //line main.qtpl:39
 		qw422016.E().S(tag.Name)
 //line main.qtpl:39
-		qw422016.N().S(` `)
+		if idx != len(tags)-1 {
+//line main.qtpl:39
+			qw422016.N().S(`, `)
+//line main.qtpl:39
+		}
 //line main.qtpl:39
 	}
 //line main.qtpl:39
@@ -218,7 +222,7 @@ func StreamProject(qw422016 *qt422016.Writer, project datastruct.Projects, tags 
     <div id='block_sait_info_2'>
     <div id='sait_date' style='width: 100px'>`)
 //line main.qtpl:70
-	qw422016.E().S(project.CreatedAt.Format("2006-01-02"))
+	qw422016.E().S(project.CreatedAt.Format("2006.01.02"))
 //line main.qtpl:70
 	qw422016.N().S(`</div>
     <div id='sait_data_about_block' style='width: 180px'>
@@ -274,4 +278,94 @@ func Project(project datastruct.Projects, tags map[int]datastruct.Tags, teamMemb
 //line main.qtpl:76
 	return qs422016
 //line main.qtpl:76
+}
+
+//line main.qtpl:78
+func StreamArticle(qw422016 *qt422016.Writer, article datastruct.Articles, tags map[int]datastruct.Tags, teamMembers map[int]datastruct.TeamMembers) {
+//line main.qtpl:78
+	qw422016.N().S(`
+<div id='block_news'>
+    <div id='block_in_block_news'>
+    <div id='block_in_block_news_2'>
+    <div id='block_news_head' style='font-size:20px;'><a href='/article/`)
+//line main.qtpl:82
+	qw422016.N().D(article.ID)
+//line main.qtpl:82
+	qw422016.N().S(`'><h2 style="font-size: 20px">`)
+//line main.qtpl:82
+	qw422016.E().S(article.Title)
+//line main.qtpl:82
+	qw422016.N().S(`</h2></a></div>
+    <div id='block_news_content' style='font-size:16px;'>`)
+//line main.qtpl:83
+	qw422016.N().S(article.ShortText)
+//line main.qtpl:83
+	qw422016.N().S(`</div>
+    </div></div>
+    <div id='block_news_info'>
+    <div id='block_news_info_2'>
+    <div id='block_date' style='font-size: 20px;'>`)
+//line main.qtpl:87
+	qw422016.E().S(article.CreatedAt.Format("2006.01.02"))
+//line main.qtpl:87
+	qw422016.N().S(`</div>
+    <div id='block_data'>
+    <div id='data_author'> Author<br><text_green>`)
+//line main.qtpl:89
+	for _, teamMemberID := range article.TeamMembersIDs {
+//line main.qtpl:89
+		qw422016.E().S(teamMembers[teamMemberID].Name)
+//line main.qtpl:89
+		qw422016.N().S(`<br>`)
+//line main.qtpl:89
+	}
+//line main.qtpl:89
+	qw422016.N().S(`<br></text_green></div>
+    <div id='data_category'> Tags<br><text_green>`)
+//line main.qtpl:90
+	for _, tagID := range article.TagsIDs {
+//line main.qtpl:90
+		qw422016.E().S(tags[tagID].Name)
+//line main.qtpl:90
+		qw422016.N().S(`<br>`)
+//line main.qtpl:90
+	}
+//line main.qtpl:90
+	qw422016.N().S(`<br></text_green></div>
+    </div>
+    <div id='block_info_footer' style='font-size: 20px;'> <a href='/article/`)
+//line main.qtpl:92
+	qw422016.N().D(article.ID)
+//line main.qtpl:92
+	qw422016.N().S(`'>read more</a></div>
+    </div></div>
+</div>
+`)
+//line main.qtpl:95
+}
+
+//line main.qtpl:95
+func WriteArticle(qq422016 qtio422016.Writer, article datastruct.Articles, tags map[int]datastruct.Tags, teamMembers map[int]datastruct.TeamMembers) {
+//line main.qtpl:95
+	qw422016 := qt422016.AcquireWriter(qq422016)
+//line main.qtpl:95
+	StreamArticle(qw422016, article, tags, teamMembers)
+//line main.qtpl:95
+	qt422016.ReleaseWriter(qw422016)
+//line main.qtpl:95
+}
+
+//line main.qtpl:95
+func Article(article datastruct.Articles, tags map[int]datastruct.Tags, teamMembers map[int]datastruct.TeamMembers) string {
+//line main.qtpl:95
+	qb422016 := qt422016.AcquireByteBuffer()
+//line main.qtpl:95
+	WriteArticle(qb422016, article, tags, teamMembers)
+//line main.qtpl:95
+	qs422016 := string(qb422016.B)
+//line main.qtpl:95
+	qt422016.ReleaseByteBuffer(qb422016)
+//line main.qtpl:95
+	return qs422016
+//line main.qtpl:95
 }

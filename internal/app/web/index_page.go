@@ -23,5 +23,9 @@ func (web *Web) IndexPageHandler(w http.ResponseWriter, r *http.Request) (string
 	if err != nil {
 		return "", errors.Wrap(err, "web.IndexPageHandler")
 	}
-	return templates.IndexPage(projects, tags, teamMembers, topTags), nil
+	articles, err := web.s.GetArticlesByLanguage(LanguageRu)
+	if err != nil {
+		return "", errors.Wrap(err, "web.IndexPageHandler")
+	}
+	return templates.IndexPage(projects, articles, tags, teamMembers, topTags), nil
 }

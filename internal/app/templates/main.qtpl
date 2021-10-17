@@ -36,7 +36,7 @@
     <div id="left_menu">
         <div id="block_for_left">
             <div id="head_left_menu">TAGS</div>
-            <div id="info_left_menu">{% for _, tag := range tags %} {%s tag.Name %} {% endfor %}</div>
+            <div id="info_left_menu">{% for idx, tag := range tags %} {%s tag.Name %}{%if idx != len(tags) - 1%}, {%endif%}{% endfor %}</div>
         </div>
     </div>
     <div id="right_menu">
@@ -67,10 +67,29 @@
     <div class='block_sait_scrin_3'>{%s= project.ShortDescription %}</div>
     </div></div></div></div><div id='block_sait_info'>
     <div id='block_sait_info_2'>
-    <div id='sait_date' style='width: 100px'>{%s project.CreatedAt.Format("2006-01-02") %}</div>
+    <div id='sait_date' style='width: 100px'>{%s project.CreatedAt.Format("2006.01.02") %}</div>
     <div id='sait_data_about_block' style='width: 180px'>
     <div style='width: 80px' id='sait_author'>Team<br><text_green>{% for _, teamMemberID := range project.TeamMembersIDs %}{%s teamMembers[teamMemberID].Name %}<br>{% endfor %}</text_green></div>
     <div style='width: 80px' id='sait_cat'>Tags<br><text_green>{% for _, tagID := range project.TagsIDs %}{%s tags[tagID].Name %}<br>{% endfor %}</text_green></div>
     </div><div id='sait_right_footer'>View</div>
 </div></div></div>
+{% endfunc %}
+
+{% func Article(article datastruct.Articles, tags map[int]datastruct.Tags, teamMembers map[int]datastruct.TeamMembers) %}
+<div id='block_news'>
+    <div id='block_in_block_news'>
+    <div id='block_in_block_news_2'>
+    <div id='block_news_head' style='font-size:20px;'><a href='/article/{%d article.ID %}'><h2 style="font-size: 20px">{%s article.Title %}</h2></a></div>
+    <div id='block_news_content' style='font-size:16px;'>{%s= article.ShortText %}</div>
+    </div></div>
+    <div id='block_news_info'>
+    <div id='block_news_info_2'>
+    <div id='block_date' style='font-size: 20px;'>{%s article.CreatedAt.Format("2006.01.02") %}</div>
+    <div id='block_data'>
+    <div id='data_author'> Author<br><text_green>{% for _, teamMemberID := range article.TeamMembersIDs %}{%s teamMembers[teamMemberID].Name %}<br>{% endfor %}<br></text_green></div>
+    <div id='data_category'> Tags<br><text_green>{% for _, tagID := range article.TagsIDs %}{%s tags[tagID].Name %}<br>{% endfor %}<br></text_green></div>
+    </div>
+    <div id='block_info_footer' style='font-size: 20px;'> <a href='/article/{%d article.ID %}'>read more</a></div>
+    </div></div>
+</div>
 {% endfunc %}

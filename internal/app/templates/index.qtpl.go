@@ -21,7 +21,7 @@ var (
 )
 
 //line index.qtpl:2
-func StreamIndexPage(qw422016 *qt422016.Writer, projects []datastruct.Projects, tags map[int]datastruct.Tags, teamMembers map[int]datastruct.TeamMembers, topTags []datastruct.Tags) {
+func StreamIndexPage(qw422016 *qt422016.Writer, projects []datastruct.Projects, articles []datastruct.Articles, tags map[int]datastruct.Tags, teamMembers map[int]datastruct.TeamMembers, topTags []datastruct.Tags) {
 //line index.qtpl:2
 	qw422016.N().S(`
 `)
@@ -51,35 +51,50 @@ func StreamIndexPage(qw422016 *qt422016.Writer, projects []datastruct.Projects, 
 	qw422016.N().S(`
 `)
 //line index.qtpl:8
-	qw422016.N().S(Footer())
+	for i := 0; i < 2 && len(articles) > i; i++ {
 //line index.qtpl:8
-	qw422016.N().S(`
+		qw422016.N().S(`
 `)
 //line index.qtpl:9
+		qw422016.N().S(Article(articles[i], tags, teamMembers))
+//line index.qtpl:9
+		qw422016.N().S(`
+`)
+//line index.qtpl:10
+	}
+//line index.qtpl:10
+	qw422016.N().S(`
+`)
+//line index.qtpl:11
+	qw422016.N().S(Footer())
+//line index.qtpl:11
+	qw422016.N().S(`
+`)
+//line index.qtpl:12
 }
 
-//line index.qtpl:9
-func WriteIndexPage(qq422016 qtio422016.Writer, projects []datastruct.Projects, tags map[int]datastruct.Tags, teamMembers map[int]datastruct.TeamMembers, topTags []datastruct.Tags) {
-//line index.qtpl:9
+//line index.qtpl:12
+func WriteIndexPage(qq422016 qtio422016.Writer, projects []datastruct.Projects, articles []datastruct.Articles, tags map[int]datastruct.Tags, teamMembers map[int]datastruct.TeamMembers, topTags []datastruct.Tags) {
+//line index.qtpl:12
 	qw422016 := qt422016.AcquireWriter(qq422016)
-//line index.qtpl:9
-	StreamIndexPage(qw422016, projects, tags, teamMembers, topTags)
-//line index.qtpl:9
+//line index.qtpl:12
+	StreamIndexPage(qw422016, projects, articles, tags, teamMembers, topTags)
+//line index.qtpl:12
 	qt422016.ReleaseWriter(qw422016)
-//line index.qtpl:9
+//line index.qtpl:12
 }
 
-//line index.qtpl:9
-func IndexPage(projects []datastruct.Projects, tags map[int]datastruct.Tags, teamMembers map[int]datastruct.TeamMembers, topTags []datastruct.Tags) string {
-//line index.qtpl:9
+//line index.qtpl:12
+func IndexPage(projects []datastruct.Projects, articles []datastruct.Articles, tags map[int]datastruct.Tags, teamMembers map[int]datastruct.TeamMembers, topTags []datastruct.Tags) string {
+//line index.qtpl:12
 	qb422016 := qt422016.AcquireByteBuffer()
-//line index.qtpl:9
-	WriteIndexPage(qb422016, projects, tags, teamMembers, topTags)
-//line index.qtpl:9
+//line index.qtpl:12
+	WriteIndexPage(qb422016, projects, articles, tags, teamMembers, topTags)
+//line index.qtpl:12
 	qs422016 := string(qb422016.B)
-//line index.qtpl:9
+//line index.qtpl:12
 	qt422016.ReleaseByteBuffer(qb422016)
-//line index.qtpl:9
+//line index.qtpl:12
 	return qs422016
-//line index.qtpl:9
+//line index.qtpl:12
 }
