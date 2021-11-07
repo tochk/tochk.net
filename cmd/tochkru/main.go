@@ -24,6 +24,7 @@ import (
 
 var (
 	logLevelFlag = flag.String("log", "info", "log level")
+	cache = flag.Bool("cache", false, "page cache")
 )
 
 func main() {
@@ -44,7 +45,7 @@ func main() {
 	repo := repository.New(db)
 	s := service.New(cfg, repo)
 	m := metrics.New()
-	w := web.New(s, m)
+	w := web.New(s, m, *cache)
 
 	router := mux.NewRouter()
 

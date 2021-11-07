@@ -13,10 +13,11 @@ import (
 )
 
 type Web struct {
-	s     *service.Service
-	m     *metrics.Metrics
-	mu    sync.RWMutex
-	cache map[string]string
+	s            *service.Service
+	m            *metrics.Metrics
+	mu           sync.RWMutex
+	cache        map[string]string
+	cacheEnabled bool
 }
 
 const (
@@ -24,12 +25,13 @@ const (
 	LanguageEn = "en"
 )
 
-func New(s *service.Service, m *metrics.Metrics) *Web {
+func New(s *service.Service, m *metrics.Metrics, cache bool) *Web {
 	return &Web{
-		s:     s,
-		m:     m,
-		mu:    sync.RWMutex{},
-		cache: map[string]string{},
+		s:            s,
+		m:            m,
+		cacheEnabled: cache,
+		mu:           sync.RWMutex{},
+		cache:        map[string]string{},
 	}
 }
 
