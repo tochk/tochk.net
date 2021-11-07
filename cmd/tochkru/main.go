@@ -24,7 +24,7 @@ import (
 
 var (
 	logLevelFlag = flag.String("log", "info", "log level")
-	cache = flag.Bool("cache", false, "page cache")
+	cache        = flag.Bool("cache", false, "page cache")
 )
 
 func main() {
@@ -65,10 +65,12 @@ func main() {
 	router.Handle("/static/{path:.*}", staticFileServer)
 
 	router.HandleFunc("/", w.Wrapper(w.IndexPageHandler)).Methods("GET")
-	//router.HandleFunc("/articles/", w.Wrapper(w.ArticlesPage)).Methods("GET")
-	//router.HandleFunc("/projects/", w.Wrapper(w.ProjectsPage)).Methods("GET")
 
-	router.HandleFunc("/project/{id}", w.Wrapper(w.ProjectPage)).Methods("GET")
+	//router.HandleFunc("/articles/", w.Wrapper(w.ArticlesPage)).Methods("GET")
+	//router.HandleFunc("/article/{id}", w.Wrapper(w.ArticlePage)).Methods("GET")
+
+	router.HandleFunc("/projects/", w.Wrapper(w.ProjectsPageHandler)).Methods("GET")
+	router.HandleFunc("/project/{id}", w.Wrapper(w.ProjectPageHandler)).Methods("GET")
 
 	log.Info("listening on: " + cfg.ListenAddr)
 	if err := http.ListenAndServe(cfg.ListenAddr, router); err != nil {

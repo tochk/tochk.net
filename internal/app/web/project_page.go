@@ -7,15 +7,15 @@ import (
 	"strconv"
 )
 
-func (web *Web) ProjectPage(w http.ResponseWriter, r *http.Request) (string, error) {
+func (web *Web) ProjectPageHandler(w http.ResponseWriter, r *http.Request) (string, error) {
 	vars := mux.Vars(r)
 	id, err := strconv.Atoi(vars["id"])
 	if err != nil {
-		return "", errors.Wrap(err, "web.ProjectPage")
+		return "", errors.Wrap(err, "web.ProjectPageHandler")
 	}
 	project, err := web.s.GetProjectByID(id)
 	if err != nil {
-		return "",  errors.Wrap(err, "web.ProjectPage")
+		return "", errors.Wrap(err, "web.ProjectPageHandler")
 	}
 	http.Redirect(w, r, project.RedirectURL, 302)
 	return "", nil
