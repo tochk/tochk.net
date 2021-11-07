@@ -1,4 +1,4 @@
-name: Makefile CI
+name: Build tochk.net
 
 on:
   push:
@@ -8,17 +8,22 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
-
     steps:
     - name: Setup Go environment
       uses: actions/setup-go@v2.1.4
-    
     - uses: actions/checkout@v2
     
     - name: Run generate
       run: make generate
-      
     - name: Run build
       run: make build
+
+    - name: Deploy
+      uses: easingthemes/ssh-deploy@main
+      env:
+        SSH_PRIVATE_KEY: ${{ secrets.SERVER_SSH_KEY }}
+        SOURCE: "bin/*"
+        REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
+        REMOTE_USER: ${{ secrets.REMOTE_USER }}
+        TARGET: ${{ secrets.REMOTE_TARGET }}
