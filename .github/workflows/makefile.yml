@@ -9,6 +9,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    environment: prod
     steps:
     - name: Setup Go environment
       uses: actions/setup-go@v2.1.4
