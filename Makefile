@@ -14,5 +14,7 @@ migrate:
 migrate_down:
 	go run cmd/migrations/main.go down ./migrations
 
+test:
+	go test ./...
 
 all: generate build
