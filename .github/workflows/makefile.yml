@@ -17,6 +17,7 @@ jobs:
       - name: Test
         run: make test
   build:
+    needs: test
     runs-on: ubuntu-latest
     environment: prod
     steps:
@@ -29,6 +30,7 @@ jobs:
     - name: Run build
       run: make build
   deploy:
+    needs: build
     runs-on: ubuntu-latest
     environment: prod
     steps:
