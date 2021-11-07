@@ -1,0 +1,26 @@
+{% import "tochkru-golang/internal/app/datastruct" %}
+{% func ArticlePage(article datastruct.Articles, tags map[int]datastruct.Tags, teamMembers map[int]datastruct.TeamMembers, topTags []datastruct.Tags) %}
+{%s= Header(article.Title) %}
+{%s= Menu(topTags) %}
+{%s= FullArticle(article, tags, teamMembers) %}
+{%s= Footer() %}
+{% endfunc %}
+
+{% func FullArticle(article datastruct.Articles, tags map[int]datastruct.Tags, teamMembers map[int]datastruct.TeamMembers) %}
+<div id='block_news'>
+    <div id='block_in_block_news'>
+    <div id='block_in_block_news_2'>
+    <div id='block_news_head' style='font-size:20px;'><a href='/article/{%d article.ID %}'><h2 style="font-size: 20px">{%s article.Title %}</h2></a></div>
+    <div id='block_news_content' style='font-size:16px;'>{%s= article.Text %}</div>
+    </div></div>
+    <div id='block_news_info'>
+    <div id='block_news_info_2'>
+    <div id='block_date' style='font-size: 20px;'>{%s article.CreatedAt.Format("2006.01.02") %}</div>
+    <div id='block_data'>
+    <div id='data_author'> Author<br><text_green>{% for _, teamMemberID := range article.TeamMembersIDs %}{%s teamMembers[teamMemberID].Name %}<br>{% endfor %}<br></text_green></div>
+    <div id='data_category'> Tags<br><text_green>{% for _, tagID := range article.TagsIDs %}{%s tags[tagID].Name %}<br>{% endfor %}<br></text_green></div>
+    </div>
+    <div id='block_info_footer' style='font-size: 20px;'> <a href='/article/{%d article.ID %}'>read more</a></div>
+    </div></div>
+</div>
+{% endfunc %}
