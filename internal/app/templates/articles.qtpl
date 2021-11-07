@@ -1,0 +1,9 @@
+{% import "tochkru-golang/internal/app/datastruct" %}
+{% func ArticlesPage(articles []datastruct.Articles, tags map[int]datastruct.Tags, teamMembers map[int]datastruct.TeamMembers, topTags []datastruct.Tags) %}
+{%s= Header("Статьи") %}
+{%s= Menu(topTags) %}
+{% for i := 0; i < len(articles); i++ %}
+{%s= Article(articles[i], tags, teamMembers) %}
+{% endfor %}
+{%s= Footer() %}
+{% endfunc %}

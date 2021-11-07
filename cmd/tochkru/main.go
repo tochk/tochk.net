@@ -66,7 +66,7 @@ func main() {
 
 	router.HandleFunc("/", w.Wrapper(w.IndexPageHandler)).Methods("GET")
 
-	//router.HandleFunc("/articles/", w.Wrapper(w.ArticlesPage)).Methods("GET")
+	router.HandleFunc("/articles/", w.Wrapper(w.ArticlesPageHandler)).Methods("GET")
 	//router.HandleFunc("/article/{id}", w.Wrapper(w.ArticlePage)).Methods("GET")
 
 	router.HandleFunc("/projects/", w.Wrapper(w.ProjectsPageHandler)).Methods("GET")
