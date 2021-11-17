@@ -31,7 +31,7 @@ func main() {
 	log.Info("starting tochk.ru web server")
 	flag.Parse()
 	cfg := config.Config{}
-	envconfig.MustProcess("tochkru", &cfg)
+	envconfig.MustProcess("tochknet", &cfg)
 
 	logLevel, err := log.ParseLevel(*logLevelFlag)
 	if err != nil {

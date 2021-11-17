@@ -17,7 +17,7 @@ func (a *Api) GetReadyHandler(w http.ResponseWriter, r *http.Request) {
 		log.Error("error on /ready: ", err)
 		data, err := json.Marshal(GetReadyResponse{
 			Status:  "error",
-			Service: "tochkru",
+			Service: "tochknet",
 		})
 		if err != nil {
 			log.Error("can't unmarshal json: ", err)
@@ -28,7 +28,7 @@ func (a *Api) GetReadyHandler(w http.ResponseWriter, r *http.Request) {
 
 	data, err := json.Marshal(GetReadyResponse{
 		Status:  "ok",
-		Service: "tochkru",
+		Service: "tochknet",
 	})
 	if err != nil {
 		log.Error("can't unmarshal json: ", err)

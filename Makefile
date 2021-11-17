@@ -1,12 +1,12 @@
 build:
 	go fmt ./...
-	GOOS=linux go build -o bin/tochkru cmd/tochkru/main.go
+	GOOS=linux go build -o bin/tochknet cmd/tochknet/main.go
 
 generate:
 	go generate ./...
 
 run:
-	go run cmd/tochkru/main.go -log=debug
+	go run cmd/tochknet/main.go -log=debug
 
 migrate:
 	go run cmd/migrations/main.go up ./migrations
