@@ -47,4 +47,4 @@ jobs:
         host: ${{ secrets.REMOTE_HOST }}
         username: ${{ secrets.REMOTE_USER }}
         key: ${{ secrets.SERVER_SSH_KEY }}
-        script: systemctl restart tochknet
+        script: sudo systemctl restart tochknet
