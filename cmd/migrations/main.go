@@ -14,7 +14,7 @@ func main() {
 		log.Fatal("Usage: ./migrate [up|down] [dir]")
 	}
 
-	m, err := migrate.New("file://"+os.Args[2], os.Getenv("TOCHKRU_DB_URL"))
+	m, err := migrate.New("file://"+os.Args[2], os.Getenv("TOCHKNET_DB_URL"))
 	if err != nil {
 		log.Fatal(err)
 	}

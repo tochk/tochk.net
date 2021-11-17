@@ -32,7 +32,7 @@ jobs:
     - name: Run generate
       run: make generate
     - name: Run build
-      run: make build
+      run: make build-arm
     - name: Deploy
       uses: easingthemes/ssh-deploy@main
       env:
