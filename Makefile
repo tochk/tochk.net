@@ -1,10 +1,10 @@
 build:
 	go fmt ./...
-	go build -o bin/tochknet cmd/tochknet/main.go
+	go build -o bin/tochknet cmd/tochknet/*.go
 
 build-arm:
 	go fmt ./...
-	GOOS=linux GOARCH=arm64 go build -o bin/tochknet cmd/tochknet/main.go
+	GOOS=linux GOARCH=arm64 go build -o bin/tochknet cmd/tochknet/*.go
 
 generate:
 	go generate ./...
