@@ -22,7 +22,7 @@ func (a *Api) GetReadyHandler(w http.ResponseWriter, r *http.Request) {
 		if err != nil {
 			log.Error("can't unmarshal json: ", err)
 		}
-		w.Write(data)
+		_, _ = w.Write(data)
 		return
 	}
 
@@ -33,7 +33,6 @@ func (a *Api) GetReadyHandler(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		log.Error("can't unmarshal json: ", err)
 	}
-	w.Write(data)
 
-	return
+	_, _ = w.Write(data)
 }

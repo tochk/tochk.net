@@ -18,4 +18,7 @@ migrate:
 test:
 	go test ./...
 
+lint:
+	golangci-lint run
+
 all: generate build

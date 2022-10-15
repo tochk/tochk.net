@@ -43,6 +43,7 @@ func New(s *service.Service, m *metrics.Metrics, cache bool) *Web {
 func (web *Web) Wrapper(f func(w http.ResponseWriter, r *http.Request) (string, error)) func(w http.ResponseWriter, r *http.Request) {
 	return func(w http.ResponseWriter, r *http.Request) {
 		web.cachePurge.Lock()
+		//nolint:staticcheck
 		web.cachePurge.Unlock()
 		atomic.AddInt64(&web.currentRequestsCount, 1)
 		defer atomic.AddInt64(&web.currentRequestsCount, -1)
