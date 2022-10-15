@@ -34,7 +34,7 @@ jobs:
         run: make test
   build-deploy:
     name: Build and deploy
-    needs: [test, lint]
+    needs: [test]
     runs-on: ubuntu-latest
     environment: prod
     steps:
