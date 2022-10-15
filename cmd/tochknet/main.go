@@ -1,6 +1,7 @@
 package main
 
 import (
+	"embed"
 	"flag"
 	"net/http"
 	"tochkru-golang/internal/app/api"
@@ -10,7 +11,6 @@ import (
 	"tochkru-golang/internal/app/service"
 	"tochkru-golang/internal/app/web"
 
-	"github.com/GeertJohan/go.rice"
 	"github.com/gorilla/mux"
 	"github.com/jmoiron/sqlx"
 	"github.com/kelseyhightower/envconfig"
@@ -19,8 +19,8 @@ import (
 	log "github.com/sirupsen/logrus"
 )
 
-//go:generate go get -u github.com/GeertJohan/go.rice/rice
-//go:generate $GOPATH/bin/rice embed-go
+//go:embed static/*
+var static embed.FS
 
 var (
 	logLevelFlag = flag.String("log", "info", "log level")
@@ -28,7 +28,7 @@ var (
 )
 
 func main() {
-	log.Info("starting tochk.ru web server")
+	log.Info("starting tochk.net web server")
 	flag.Parse()
 	cfg := config.Config{}
 	envconfig.MustProcess("tochknet", &cfg)
@@ -60,9 +60,7 @@ func main() {
 		}
 	}()
 
-	box := rice.MustFindBox("../../internal/static")
-	staticFileServer := http.StripPrefix("/static/", http.FileServer(box.HTTPBox()))
-	router.Handle("/static/{path:.*}", staticFileServer)
+	router.Handle("/static/{path:.*}", http.FileServer(http.FS(static)))
 
 	router.HandleFunc("/", w.Wrapper(w.IndexPageHandler)).Methods("GET")
 

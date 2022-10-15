@@ -23,35 +23,50 @@ func StreamErrorPage(qw422016 *qt422016.Writer, err error) {
 	qw422016.N().S(`
 `)
 //line error.qtpl:2
-	qw422016.N().S(err.Error())
+	qw422016.N().S(Header("Статьи"))
 //line error.qtpl:2
 	qw422016.N().S(`
 `)
 //line error.qtpl:3
+	qw422016.N().S(Menu(nil))
+//line error.qtpl:3
+	qw422016.N().S(`
+`)
+//line error.qtpl:4
+	qw422016.N().S(err.Error())
+//line error.qtpl:4
+	qw422016.N().S(`
+`)
+//line error.qtpl:5
+	qw422016.N().S(Footer())
+//line error.qtpl:5
+	qw422016.N().S(`
+`)
+//line error.qtpl:6
 }
 
-//line error.qtpl:3
+//line error.qtpl:6
 func WriteErrorPage(qq422016 qtio422016.Writer, err error) {
-//line error.qtpl:3
+//line error.qtpl:6
 	qw422016 := qt422016.AcquireWriter(qq422016)
-//line error.qtpl:3
+//line error.qtpl:6
 	StreamErrorPage(qw422016, err)
-//line error.qtpl:3
+//line error.qtpl:6
 	qt422016.ReleaseWriter(qw422016)
-//line error.qtpl:3
+//line error.qtpl:6
 }
 
-//line error.qtpl:3
+//line error.qtpl:6
 func ErrorPage(err error) string {
-//line error.qtpl:3
+//line error.qtpl:6
 	qb422016 := qt422016.AcquireByteBuffer()
-//line error.qtpl:3
+//line error.qtpl:6
 	WriteErrorPage(qb422016, err)
-//line error.qtpl:3
+//line error.qtpl:6
 	qs422016 := string(qb422016.B)
-//line error.qtpl:3
+//line error.qtpl:6
 	qt422016.ReleaseByteBuffer(qb422016)
-//line error.qtpl:3
+//line error.qtpl:6
 	return qs422016
-//line error.qtpl:3
+//line error.qtpl:6
 }

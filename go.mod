@@ -3,7 +3,6 @@ module tochkru-golang
 go 1.19
 
 require (
-	github.com/GeertJohan/go.rice v1.0.2
 	github.com/golang-migrate/migrate/v4 v4.15.0
 	github.com/gorilla/mux v1.8.0
 	github.com/jmoiron/sqlx v1.3.4
@@ -18,7 +17,6 @@ require (
 require (
 	github.com/beorn7/perks v1.0.1 // indirect
 	github.com/cespare/xxhash/v2 v2.1.1 // indirect
-	github.com/daaku/go.zipexe v1.0.1 // indirect
 	github.com/golang/protobuf v1.5.2 // indirect
 	github.com/hashicorp/errwrap v1.0.0 // indirect
 	github.com/hashicorp/go-multierror v1.1.0 // indirect
@@ -28,6 +26,6 @@ require (
 	github.com/prometheus/procfs v0.6.0 // indirect
 	github.com/valyala/bytebufferpool v1.0.0 // indirect
 	go.uber.org/atomic v1.6.0 // indirect
-	golang.org/x/sys v0.0.0-20211106132015-ebca88c72f68 // indirect
+	golang.org/x/sys v0.0.0-20221013171732-95e765b1cc43 // indirect
 	google.golang.org/protobuf v1.27.1 // indirect
 )

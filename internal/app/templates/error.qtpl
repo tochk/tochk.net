@@ -1,3 +1,6 @@
 {% func ErrorPage(err error) %}
+{%s= Header("Статьи") %}
+{%s= Menu(nil) %}
 {%s= err.Error() %}
+{%s= Footer() %}
 {% endfunc %}
