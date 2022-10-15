@@ -31,42 +31,55 @@ func StreamErrorPage(qw422016 *qt422016.Writer, err error) {
 	qw422016.N().S(Menu(nil))
 //line error.qtpl:3
 	qw422016.N().S(`
-`)
-//line error.qtpl:4
+<div id='block_news'>
+    <div id='block_in_block_news'>
+    <div id='block_in_block_news_2'>
+    <div id='block_news_head' style='font-size:20px;'><h2 style="font-size: 20px">Server error</h2></a></div>
+    <div id='block_news_content' style='font-size:16px;'>`)
+//line error.qtpl:8
 	qw422016.N().S(err.Error())
-//line error.qtpl:4
-	qw422016.N().S(`
+//line error.qtpl:8
+	qw422016.N().S(`</div>
+    </div></div>
+    <div id='block_news_info'>
+    <div id='block_news_info_2'>
+    <div id='block_date' style='font-size: 20px;'></div>
+    <div id='block_data'>
+    </div>
+    <div id='block_info_footer' style='font-size: 20px;'></div>
+    </div></div>
+</div>
 `)
-//line error.qtpl:5
+//line error.qtpl:18
 	qw422016.N().S(Footer())
-//line error.qtpl:5
+//line error.qtpl:18
 	qw422016.N().S(`
 `)
-//line error.qtpl:6
+//line error.qtpl:19
 }
 
-//line error.qtpl:6
+//line error.qtpl:19
 func WriteErrorPage(qq422016 qtio422016.Writer, err error) {
-//line error.qtpl:6
+//line error.qtpl:19
 	qw422016 := qt422016.AcquireWriter(qq422016)
-//line error.qtpl:6
+//line error.qtpl:19
 	StreamErrorPage(qw422016, err)
-//line error.qtpl:6
+//line error.qtpl:19
 	qt422016.ReleaseWriter(qw422016)
-//line error.qtpl:6
+//line error.qtpl:19
 }
 
-//line error.qtpl:6
+//line error.qtpl:19
 func ErrorPage(err error) string {
-//line error.qtpl:6
+//line error.qtpl:19
 	qb422016 := qt422016.AcquireByteBuffer()
-//line error.qtpl:6
+//line error.qtpl:19
 	WriteErrorPage(qb422016, err)
-//line error.qtpl:6
+//line error.qtpl:19
 	qs422016 := string(qb422016.B)
-//line error.qtpl:6
+//line error.qtpl:19
 	qt422016.ReleaseByteBuffer(qb422016)
-//line error.qtpl:6
+//line error.qtpl:19
 	return qs422016
-//line error.qtpl:6
+//line error.qtpl:19
 }

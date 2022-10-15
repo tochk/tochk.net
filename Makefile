@@ -9,7 +9,7 @@ build-arm:
 generate:
 	go generate ./...
 
-run:
+run: generate
 	go run cmd/tochknet/main.go -log=debug
 
 migrate:
