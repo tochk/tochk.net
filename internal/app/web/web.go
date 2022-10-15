@@ -6,6 +6,7 @@ import (
 	"net/http"
 	"strings"
 	"sync"
+	"sync/atomic"
 	"time"
 	"tochkru-golang/internal/app/metrics"
 	"tochkru-golang/internal/app/service"
@@ -13,11 +14,13 @@ import (
 )
 
 type Web struct {
-	s            *service.Service
-	m            *metrics.Metrics
-	mu           sync.RWMutex
-	cache        map[string]string
-	cacheEnabled bool
+	s                    *service.Service
+	m                    *metrics.Metrics
+	currentRequestsCount int64
+	cachePurge           sync.Mutex
+	mu                   sync.RWMutex
+	cache                map[string]string
+	cacheEnabled         bool
 }
 
 const (
@@ -27,16 +30,22 @@ const (
 
 func New(s *service.Service, m *metrics.Metrics, cache bool) *Web {
 	return &Web{
-		s:            s,
-		m:            m,
-		cacheEnabled: cache,
-		mu:           sync.RWMutex{},
-		cache:        map[string]string{},
+		s:                    s,
+		m:                    m,
+		currentRequestsCount: 0,
+		cachePurge:           sync.Mutex{},
+		cacheEnabled:         cache,
+		mu:                   sync.RWMutex{},
+		cache:                map[string]string{},
 	}
 }
 
 func (web *Web) Wrapper(f func(w http.ResponseWriter, r *http.Request) (string, error)) func(w http.ResponseWriter, r *http.Request) {
 	return func(w http.ResponseWriter, r *http.Request) {
+		web.cachePurge.Lock()
+		web.cachePurge.Unlock()
+		atomic.AddInt64(&web.currentRequestsCount, 1)
+		defer atomic.AddInt64(&web.currentRequestsCount, -1)
 		t := time.Now()
 		log.Infof("Requested [%s] %s page from %s", r.Method, r.URL.Path, r.Header.Get("X-Real-IP"))
 		defer func() {
@@ -57,7 +66,8 @@ func (web *Web) Wrapper(f func(w http.ResponseWriter, r *http.Request) (string, 
 			fmt.Fprint(w, templates.ErrorPage(err))
 			return
 		}
-		if !strings.HasPrefix(r.URL.Path, "/admin/") {
+		if !strings.HasPrefix(r.URL.Path, "/admin/") &&
+			!strings.HasPrefix(r.URL.Path, "/project/") {
 			web.SaveCache(r.URL.Path, resp)
 		}
 		fmt.Fprint(w, resp)

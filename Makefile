@@ -10,13 +10,10 @@ generate:
 	go generate ./...
 
 run: generate
-	go run cmd/tochknet/main.go -log=debug
+	go run cmd/tochknet/main.go -log=debug -cache
 
 migrate:
 	go run cmd/migrations/main.go up ./migrations
-
-migrate_down:
-	go run cmd/migrations/main.go down ./migrations
 
 test:
 	go test ./...
