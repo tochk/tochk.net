@@ -78,18 +78,18 @@ func ArticlePage(article datastruct.Articles, tags map[int]datastruct.Tags, team
 func StreamFullArticle(qw422016 *qt422016.Writer, article datastruct.Articles, tags map[int]datastruct.Tags, teamMembers map[int]datastruct.TeamMembers) {
 //line article.qtpl:9
 	qw422016.N().S(`
-<div id='block_news'>
+<article id='block_news'>
     <div id='block_in_block_news'>
     <div id='block_in_block_news_2'>
     <div id='block_news_head' style='font-size:20px;'><a href='/article/`)
 //line article.qtpl:13
 	qw422016.N().D(article.ID)
 //line article.qtpl:13
-	qw422016.N().S(`'><h2 style="font-size: 20px">`)
+	qw422016.N().S(`'><h1 style="font-size: 20px">`)
 //line article.qtpl:13
 	qw422016.E().S(article.Title)
 //line article.qtpl:13
-	qw422016.N().S(`</h2></a></div>
+	qw422016.N().S(`</h1></a></div>
     <div id='block_news_content' style='font-size:16px;'>`)
 //line article.qtpl:14
 	qw422016.N().S(article.Text)
@@ -104,7 +104,7 @@ func StreamFullArticle(qw422016 *qt422016.Writer, article datastruct.Articles, t
 //line article.qtpl:18
 	qw422016.N().S(`</div>
     <div id='block_data'>
-    <div id='data_author'> Author<br><text_green>`)
+    <author id='data_author'> Author<br><text_green>`)
 //line article.qtpl:20
 	for _, teamMemberID := range article.TeamMembersIDs {
 //line article.qtpl:20
@@ -114,7 +114,7 @@ func StreamFullArticle(qw422016 *qt422016.Writer, article datastruct.Articles, t
 //line article.qtpl:20
 	}
 //line article.qtpl:20
-	qw422016.N().S(`<br></text_green></div>
+	qw422016.N().S(`<br></text_green></author>
     <div id='data_category'> Tags<br><text_green>`)
 //line article.qtpl:21
 	for _, tagID := range article.TagsIDs {
@@ -133,7 +133,7 @@ func StreamFullArticle(qw422016 *qt422016.Writer, article datastruct.Articles, t
 //line article.qtpl:23
 	qw422016.N().S(`'>read more</a></div>
     </div></div>
-</div>
+</article>
 `)
 //line article.qtpl:26
 }
