@@ -4,16 +4,16 @@ on:
   push:
     branches: [ master ]
   pull_request:
-    branches: [ master, linters ]
+    branches: [ master ]
 
 jobs:
   lint:
-    name: Run Linters
+    name: Linters
     runs-on: ubuntu-latest
     steps:
       - uses: actions/setup-go@v3.5.0
         with:
-          go-version: 1.19
+          go-version: 1.20
 
       - uses: actions/checkout@v3.3.0
 
@@ -21,17 +21,21 @@ jobs:
         uses: golangci/golangci-lint-action@v3
         with:
           version: v1.51.1
+
   test:
-    name: Run tests
+    name: Tests
     runs-on: ubuntu-latest
     steps:
       - name: Setup Go environment
         uses: actions/setup-go@v3.5.0
         with:
-          go-version: 1.19
+          go-version: 1.20
+
       - uses: actions/checkout@v3.3.0
+
       - name: Test
         run: make test
+
   build-deploy:
     name: Build and deploy
     needs: [test, lint]
@@ -41,14 +45,17 @@ jobs:
     - name: Setup Go environment
       uses: actions/setup-go@v3.5.0
       with:
-        go-version: 1.19
+        go-version: 1.20
+
     - uses: actions/checkout@v3.3.0
     
-    - name: Run generate
+    - name: Generate files
       run: make generate
-    - name: Run build
+
+    - name: Build ARM binary
       run: make build-arm
-    - name: Deploy
+
+    - name: Deploy to server
       uses: easingthemes/ssh-deploy@v4.0.5
       env:
         SSH_PRIVATE_KEY: ${{ secrets.SERVER_SSH_KEY }}
@@ -56,6 +63,7 @@ jobs:
         REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
         REMOTE_USER: ${{ secrets.REMOTE_USER }}
         TARGET: ${{ secrets.REMOTE_TARGET }}
+
     - name: Restart service
       uses: appleboy/ssh-action@v0.1.7
       with:
