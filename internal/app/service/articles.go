@@ -36,6 +36,22 @@ func (s *Service) GetArticlesByLanguage(language string) (res []datastruct.Artic
 
 func (s *Service) GetArticleByID(id int) (res datastruct.Articles, err error) {
 	res, err = s.r.GetArticleByID(id)
+	if err != nil {
+		return res, errors.Wrap(err, "service.GetArticleByID")
+	}
+	articleTagsMap, err := s.GetArticlesTagsMap([]int{res.ID})
+	if err != nil {
+		return res, errors.Wrap(err, "service.GetArticleByID")
+	}
+
+	articleTeamMembersMap, err := s.GetArticlesTeamMembersMap([]int{res.ID})
+	if err != nil {
+		return res, errors.Wrap(err, "service.GetArticleByID")
+	}
+
+	res.TagsIDs = articleTagsMap[res.ID]
+	res.TeamMembersIDs = articleTeamMembersMap[res.ID]
+
 	return res, errors.Wrap(err, "service.GetArticleByID")
 }
 

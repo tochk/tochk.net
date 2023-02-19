@@ -3,6 +3,7 @@ package web
 import (
 	"github.com/gorilla/mux"
 	"github.com/pkg/errors"
+	log "github.com/sirupsen/logrus"
 	"net/http"
 	"strconv"
 	"tochkru-golang/internal/app/templates"
@@ -30,5 +31,6 @@ func (web *Web) ArticlePageHandler(w http.ResponseWriter, r *http.Request) (stri
 	if err != nil {
 		return "", errors.Wrap(err, "web.ArticlePageHandler")
 	}
+	log.Println(teamMembers)
 	return templates.ArticlePage(article, tags, teamMembers, topTags), nil
 }

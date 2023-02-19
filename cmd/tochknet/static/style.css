@@ -214,7 +214,8 @@ main {
 #data_author {
     width: 100px;
     height: auto;
-    text-align: right
+    text-align: right;
+    display: block;
 }
 
 #data_category {
