@@ -39,17 +39,17 @@ jobs:
     environment: prod
     steps:
     - name: Setup Go environment
-      uses: actions/setup-go@v2.1.4
+      uses: actions/setup-go@v3.5.0
       with:
         go-version: 1.19
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3.3.0
     
     - name: Run generate
       run: make generate
     - name: Run build
       run: make build-arm
     - name: Deploy
-      uses: easingthemes/ssh-deploy@main
+      uses: easingthemes/ssh-deploy@v4.0.5
       env:
         SSH_PRIVATE_KEY: ${{ secrets.SERVER_SSH_KEY }}
         SOURCE: "bin/*"
@@ -57,7 +57,7 @@ jobs:
         REMOTE_USER: ${{ secrets.REMOTE_USER }}
         TARGET: ${{ secrets.REMOTE_TARGET }}
     - name: Restart service
-      uses: appleboy/ssh-action@master
+      uses: appleboy/ssh-action@v0.1.7
       with:
         host: ${{ secrets.REMOTE_HOST }}
         username: ${{ secrets.REMOTE_USER }}
