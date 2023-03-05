@@ -32,6 +32,8 @@
     <div id="header_for_buttons">
         <div id="logo_name" onclick="window.location.href='/'"><h1>TOCHK.NET</h1></div>
         <div id="buttons">
+            <div id="button" onclick="window.location.href='/team/'">TEAM</div>
+            <div id="button" onclick="window.location.href='/about/'">ABOUT ME</div>
             <div id="button" onclick="window.location.href='/projects/'">ПРОЕКТЫ</div>
             <div id="button" onclick="window.location.href='/articles/'">СТАТЬИ</div>
             <div id="button" onclick="window.location.href='/'">ГЛАВНАЯ</div>

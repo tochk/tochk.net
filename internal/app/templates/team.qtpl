@@ -1,0 +1,26 @@
+{% import "tochkru-golang/internal/app/datastruct" %}
+{% func TeamPage(teamMembers []datastruct.TeamMembers, topTags []datastruct.Tags) %}
+{%s= Header("Team") %}
+{%s= Menu(topTags) %}
+<style>
+table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+</style>
+<article id='block_news'>
+<table width="30%">
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+    </tr>
+    {% for _, teamMember := range teamMembers %}
+     <tr>
+        <td>{%d teamMember.ID %}</td>
+        <td>{%s teamMember.Name %}</td>
+     </tr>
+    {% endfor %}
+</table>
+</article>
+{%s= Footer() %}
+{% endfunc %}

@@ -16,3 +16,8 @@ func (s *Service) GetTeamMembersMap() (res map[int]datastruct.TeamMembers, err e
 	}
 	return res, nil
 }
+
+func (s *Service) GetTeamMembers() (res []datastruct.TeamMembers, err error) {
+	teamMembers, err := s.r.GetAllTeamMembers()
+	return teamMembers, errors.Wrap(err, "service.GetTeamMembers")
+}

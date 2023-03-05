@@ -70,6 +70,10 @@ func main() {
 	router.HandleFunc("/projects/", w.Wrapper(w.ProjectsPageHandler)).Methods("GET")
 	router.HandleFunc("/project/{id}", w.Wrapper(w.ProjectPageHandler)).Methods("GET")
 
+	router.HandleFunc("/about/", w.Wrapper(w.AboutPageHandler)).Methods("GET")
+
+	router.HandleFunc("/team/", w.Wrapper(w.TeamPageHandler)).Methods("GET")
+
 	log.Info("listening on: " + cfg.ListenAddr)
 	if err := http.ListenAndServe(cfg.ListenAddr, router); err != nil {
 		panic(err)

@@ -1,0 +1,10 @@
+{% import "tochkru-golang/internal/app/datastruct" %}
+{% func AboutPage(topTags []datastruct.Tags) %}
+{%s= Header("About") %}
+{%s= Menu(topTags) %}
+<article id='block_news'>
+Aleksei Andreev </br>
+Software engineer at Vio.com </br>
+</article>
+{%s= Footer() %}
+{% endfunc %}
