@@ -66,7 +66,7 @@
 
 
 {% func Project(project datastruct.Projects, tags map[int]datastruct.Tags, teamMembers map[int]datastruct.TeamMembers) %}
-<div id='block_new_sait' onclick="window.open('/project/{%d project.ID %}', '_blank');">
+<div id='block_new_sait' onclick="window.open('/project/{%d project.ID %}', '_self');">
     <div id='block_in_block_sait'>
     <div id='block_in_block_sait_2'>
     <div id='block_sait_head'>{%s project.Title %}</div>

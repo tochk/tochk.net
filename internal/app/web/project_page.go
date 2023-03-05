@@ -5,6 +5,7 @@ import (
 	"github.com/pkg/errors"
 	"net/http"
 	"strconv"
+	"tochkru-golang/internal/app/templates"
 )
 
 func (web *Web) ProjectPageHandler(w http.ResponseWriter, r *http.Request) (string, error) {
@@ -17,6 +18,21 @@ func (web *Web) ProjectPageHandler(w http.ResponseWriter, r *http.Request) (stri
 	if err != nil {
 		return "", errors.Wrap(err, "web.ProjectPageHandler")
 	}
-	http.Redirect(w, r, project.RedirectURL, 302)
-	return "", nil
+
+	tags, err := web.s.GetTagsMap()
+	if err != nil {
+		return "", errors.Wrap(err, "web.ArticlePageHandler")
+	}
+
+	teamMembers, err := web.s.GetTeamMembersMap()
+	if err != nil {
+		return "", errors.Wrap(err, "web.ArticlePageHandler")
+	}
+
+	topTags, err := web.s.GetTopTags()
+	if err != nil {
+		return "", errors.Wrap(err, "web.ArticlePageHandler")
+	}
+
+	return templates.ProjectPage(project, tags, teamMembers, topTags), nil
 }

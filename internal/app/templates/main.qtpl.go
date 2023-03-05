@@ -207,7 +207,7 @@ func StreamProject(qw422016 *qt422016.Writer, project datastruct.Projects, tags 
 //line main.qtpl:69
 	qw422016.N().D(project.ID)
 //line main.qtpl:69
-	qw422016.N().S(`', '_blank');">
+	qw422016.N().S(`', '_self');">
     <div id='block_in_block_sait'>
     <div id='block_in_block_sait_2'>
     <div id='block_sait_head'>`)

@@ -37,6 +37,24 @@ func (s *Service) GetProjectsByLanguage(language string) (res []datastruct.Proje
 
 func (s *Service) GetProjectByID(id int) (res datastruct.Projects, err error) {
 	res, err = s.r.GetProjectByID(id)
+	if err != nil {
+		return res, errors.Wrap(err, "service.GetProjectByID")
+	}
+
+	projectTagsMap, err := s.GetProjectsTagsMap([]int{res.ID})
+	if err != nil {
+		return res, errors.Wrap(err, "service.GetProjectByID")
+	}
+
+	projectTeamMembersMap, err := s.GetProjectsTeamMembersMap([]int{res.ID})
+	if err != nil {
+		return res, errors.Wrap(err, "service.GetProjectByID")
+	}
+
+	res.ImageURL = s.cnf.CDNBaseURL + res.ImageURL
+	res.TagsIDs = projectTagsMap[res.ID]
+	res.TeamMembersIDs = projectTeamMembersMap[res.ID]
+
 	return res, errors.Wrap(err, "service.GetProjectByID")
 }
 
